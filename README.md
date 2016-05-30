@@ -22,13 +22,13 @@ npm install -g docker-machine-share
 ### export
 
 ```
-docker-machine-share > ~/docker-machines.json
+docker-machine-share > ~/Downloads/docker-machines.json
 ```
 
 ### import
 
 ```
-docker-machine-share < ~/docker-machines.json
+envsubst '$HOME' < ~/Downloads/docker-machines.json | docker-machine-share
 ```
 
 ## LICENSE

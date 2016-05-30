@@ -1,23 +1,30 @@
 
 module.exports = function(deps) {
-    const list = deps.list;
+    const fs = deps.fs;
+    const path = deps.path;
+    const serializeDirectory = require('./serialize-directory')({ fs, path });
 
     return exportMachines;
 
-    function exportMachines(dockerMachinesDir) {
-        const serializable = list.readMachines(dockerMachinesDir)
-            .map(m => presentForSerialization(m));
-        return JSON.stringify(serializable);
-    }
+    function exportMachines(dockerMachineDirectory, names) {
 
-    function presentForSerialization(machine) {
-        return {
-            name: machine.name,
-            files: machine.files.concat({
-                name: 'config.json',
-                contents: JSON.stringify(machine.config)
-            })
-        };
+        const machines = serializeDirectory([dockerMachineDirectory, 'machines'], {
+            filter(filename) {
+                return names.indexOf(filename) > -1;
+            },
+            preprocess(filename, contents) {
+                if (filename !== 'config.json') {
+                    return contents;
+                }
+                return contents.replace(
+                    new RegExp(process.env.HOME, 'gi'), '$HOME'
+                );
+            }
+        });
+
+        const certs = serializeDirectory([dockerMachineDirectory, 'certs']);
+
+        return JSON.stringify({ machines, certs });
     }
 
 };
