@@ -14,7 +14,7 @@ for testing purposes only.
 ## Installation
 
 ```
-npm install -g docker-machine-share
+npm install -g docker-machine-config-dump
 ```
 
 ## Usage
@@ -22,13 +22,13 @@ npm install -g docker-machine-share
 ### export
 
 ```
-docker-machine-share > ~/Downloads/docker-machines.json
+docker-machine-config-dump > ~/Downloads/docker-machines.json
 ```
 
 ### import
 
 ```
-envsubst '$HOME' < ~/Downloads/docker-machines.json | docker-machine-share
+envsubst '$HOME' < ~/Downloads/docker-machines.json | docker-machine-config-dump
 ```
 
 few notes:
@@ -40,17 +40,17 @@ brew install gettext
 brew link --force gettext
 ```
 
-- if you already have machines, it is good idea to backup your certs before importing
-someone else's machines:
+- if you already have machines, it might be a good idea to backup your certs
+  before importing someone else's machines:
 
 ```
-docker-machine-share > ~/backup-docker-machine.json
+docker-machine-config-dump > ~/backup-docker-machine.json
 ```
 
 then if you want to restore them later just import from ~/backup-docker-machine.json:
 
 ```
-docker-machine-share < ~/backup-docker-machine.json
+docker-machine-config-dump < ~/backup-docker-machine.json
 ```
 
 ## LICENSE

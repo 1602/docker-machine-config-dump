@@ -1,17 +1,17 @@
 {
-  "name": "docker-machine-share",
+  "name": "docker-machine-config-dump",
   "version": "1.0.3",
   "description": "Share docker machines with your dev team",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha"
   },
   "bin": {
-    "docker-machine-share": "bin/docker-machine-share.js"
+    "docker-machine-config-dump": "bin/docker-machine-config-dump.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/1602/docker-machine-share.git"
+    "url": "git+ssh://git@github.com/1602/docker-machine-config-dump.git"
   },
   "keywords": [
     "docker-machine",
@@ -23,9 +23,9 @@
   "author": "Anatolii Chakkaev",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/1602/docker-machine-share/issues"
+    "url": "https://github.com/1602/docker-machine-config-dump/issues"
   },
-  "homepage": "https://github.com/1602/docker-machine-share#readme",
+  "homepage": "https://github.com/1602/docker-machine-config-dump#readme",
   "devDependencies": {
     "eslint": "^2.11.0",
     "mocha": "^2.5.3",
