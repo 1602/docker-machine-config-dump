@@ -4,15 +4,18 @@ module.exports = function(deps) {
     const fs = deps.fs;
     const path = deps.path;
 
-    return importMachines;
+    return importConfig;
 
-    function importMachines(dockerMachinesDir, data) {
+    function importConfig(dockerMachinesDir, data) {
         if (typeof data === 'string') {
             data = JSON.parse(data);
         }
         const machines = data.machines;
         machines.forEach(machine => importMachine(dockerMachinesDir, machine));
-        data.certs.forEach(cert => fs.writeFileSync(path.join(dockerMachinesDir, '../certs', cert.name), cert.contents));
+
+        data.certs.forEach(cert => fs.writeFileSync(
+            path.join(dockerMachinesDir, '../certs', cert.name),
+            cert.contents));
     }
 
     function importMachine(dockerMachinesDir, machine) {
@@ -20,7 +23,7 @@ module.exports = function(deps) {
 
         createDirIfMissing(dockerMachinesDir);
 
-        machine.contents.forEach(file => {
+        machine.files.forEach(file => {
             fs.writeFileSync(path.join(dockerMachineDir, file.name), file.contents);
         });
 

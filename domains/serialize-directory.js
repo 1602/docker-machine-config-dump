@@ -12,27 +12,35 @@ module.exports = function(deps) {
         }
 
         return fs.readdirSync(dir)
-            .filter(name => filter(name))
-            .map(name => ({
-                name,
-                contents: process(
-                    name,
-                    fs.lstatSync(path.join(dir, name)).isDirectory()
-                    ? serializeDirectory(path.join(dir, name))
-                    : fs.readFileSync(path.join(dir, name)).toString()
-                )
-            }));
+            .map(name => {
+                const itemPath = path.join(dir, name);
+                const isDir = fs.lstatSync(itemPath).isDirectory();
+                if (isDir) {
+                    if (filter(name)) {
+                        return {
+                            name,
+                            files: serializeDirectory(itemPath, opts)
+                        };
+                    }
+                } else {
+                    return {
+                        name,
+                        contents: fs.readFileSync(itemPath).toString()
+                    };
+                }
+            })
+            .filter(Boolean);
 
         function process(name, contents) {
-            if (opts && opts.preprocess) {
-                return opts.preprocess(name, contents);
+            if (opts && opts.preprocessFiles) {
+                return opts.preprocessFiles(name, contents);
             }
             return contents;
         }
 
         function filter(name) {
-            if (opts && opts.filter) {
-                return opts.filter(name);
+            if (opts && opts.filterDirsByName) {
+                return opts.filterDirsByName(name);
             }
             return true;
         }

@@ -1,6 +1,6 @@
 {
   "name": "docker-machine-share",
-  "version": "1.0.1",
+  "version": "1.0.3",
   "description": "Share docker machines with your dev team",
   "main": "index.js",
   "scripts": {

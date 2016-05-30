@@ -9,10 +9,10 @@ module.exports = function(deps) {
     function exportMachines(dockerMachineDirectory, names) {
 
         const machines = serializeDirectory([dockerMachineDirectory, 'machines'], {
-            filter(filename) {
+            filterDirsByName(filename) {
                 return names.indexOf(filename) > -1;
             },
-            preprocess(filename, contents) {
+            preprocessFiles(filename, contents) {
                 if (filename !== 'config.json') {
                     return contents;
                 }
