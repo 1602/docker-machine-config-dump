@@ -1,6 +1,6 @@
 {
   "name": "docker-machine-config-dump",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Share docker machines with your dev team",
   "main": "index.js",
   "scripts": {

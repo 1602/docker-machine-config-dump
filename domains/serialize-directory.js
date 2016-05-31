@@ -25,7 +25,7 @@ module.exports = function(deps) {
                 } else {
                     return {
                         name,
-                        contents: fs.readFileSync(itemPath).toString()
+                        contents: process(name, fs.readFileSync(itemPath).toString())
                     };
                 }
             })
